@@ -10,34 +10,37 @@ import { Hourglass } from 'react-loader-spinner'
 
 const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
   const [verificationStatus, setVerificationStatus] = useState('verifying')
-  //const { push } = useRouter()
+  const { push } = useRouter()
   const token = searchParams?.token
 
-
   useEffect(() => {
-    console.log("first")
     const verifyEmailAsync = async () => {
-   
-        // try {
-        //   const res = await verifyEmail(token)
+      if (token) {
+        try {
+          const res = await verifyEmail(token)
 
-        //   console.log({res: res})
-        //   // If registration is successful, redirect to login page
-        //   if (res.msg === 'Verification success') {
-        //     setVerificationStatus('success')
-        //   }
+         // console.log(res, "resftfyf")
+          // If registration is successful, redirect to login page
+          if (res.msg === 'Verification success') {
+            setVerificationStatus('success')
+            setTimeout(() => {
+              push('/login')
+            }, 3000) // Redirect after 3 seconds
+          }
 
-        //   else setVerificationStatus('error')
-        // } catch (error) {
-        //   setVerificationStatus('error')
-
-        //   console.error('Error verifying email:', error)
-        //   setVerificationStatus('error')
-        // }
+          if (res.error) setVerificationStatus('error')
+        } catch (error) {
+          console.error('Error verifying email:', error)
+          setVerificationStatus('error')
+        }
+      } else {
+        console.error('Token not found in search params')
+        setVerificationStatus('error')
+      }
     }
 
     verifyEmailAsync()
-  },[] )
+  }, [token])
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
