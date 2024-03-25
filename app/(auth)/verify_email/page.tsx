@@ -21,12 +21,11 @@ const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
         try {
           const res = await verifyEmail(token)
 
+          console.log({res: res})
           // If registration is successful, redirect to login page
           if (res.msg === 'Verification success') {
             setVerificationStatus('success')
-            setTimeout(() => {
-              push('/login')
-            }, 3000) // Redirect after 3 seconds
+           
           }
 
           if (res.error) setVerificationStatus('error')
@@ -37,7 +36,7 @@ const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
     }
 
     verifyEmailAsync()
-  })
+  },[verificationStatus, token] )
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
@@ -81,4 +80,4 @@ const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
 }
 
 export default VerifyPage
-1
+
