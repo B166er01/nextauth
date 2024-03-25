@@ -10,29 +10,30 @@ import { Hourglass } from 'react-loader-spinner'
 
 const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
   const [verificationStatus, setVerificationStatus] = useState('verifying')
-  const { push } = useRouter()
+  //const { push } = useRouter()
   const token = searchParams?.token
 
-  console.log(verificationStatus, "vs")
 
   useEffect(() => {
     const verifyEmailAsync = async () => {
    
-        try {
-          const res = await verifyEmail(token)
+      console.log("useEffect")
+        // try {
+        //   const res = await verifyEmail(token)
 
-          console.log({res: res})
-          // If registration is successful, redirect to login page
-          if (res.msg === 'Verification success') {
-            setVerificationStatus('success')
-           
-          }
+        //   console.log({res: res})
+        //   // If registration is successful, redirect to login page
+        //   if (res.msg === 'Verification success') {
+        //     setVerificationStatus('success')
+        //   }
 
-          if (res.error) setVerificationStatus('error')
-        } catch (error) {
-          console.error('Error verifying email:', error)
-          setVerificationStatus('error')
-        }
+        //   else setVerificationStatus('error')
+        // } catch (error) {
+        //   setVerificationStatus('error')
+
+        //   console.error('Error verifying email:', error)
+        //   setVerificationStatus('error')
+        // }
     }
 
     verifyEmailAsync()

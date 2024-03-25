@@ -104,7 +104,7 @@ export const verifyEmail = async (token: string) => {
     return { msg: 'Verification success' }
   } catch (err) {
     // If an error occurs during the process, return an error message
-    console.error(err)
+    console.error(err, "toto")
     return { error: err }
   }
 }
