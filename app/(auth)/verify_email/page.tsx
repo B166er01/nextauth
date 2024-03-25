@@ -10,38 +10,34 @@ import { Hourglass } from 'react-loader-spinner'
 
 const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
   const [verificationStatus, setVerificationStatus] = useState('verifying')
-  const { push } = useRouter()
+  //const { push } = useRouter()
   const token = searchParams?.token
-  const [isMounted, setIsMounted] = useState(true); // Track whether the component is mounted
+
 
   useEffect(() => {
+    console.log("first")
     const verifyEmailAsync = async () => {
-      try {
-        const res = await verifyEmail(token)
-        if (!isMounted) return; // Check if component is still mounted
+   
+        // try {
+        //   const res = await verifyEmail(token)
 
-        if (res.msg === 'Verification success') {
-          setVerificationStatus('success')
-          setTimeout(() => {
-            if (isMounted) { // Check if component is still mounted before redirecting
-              push('/login')
-            }
-          }, 3000) // Redirect after 3 seconds
-        }
+        //   console.log({res: res})
+        //   // If registration is successful, redirect to login page
+        //   if (res.msg === 'Verification success') {
+        //     setVerificationStatus('success')
+        //   }
 
-        if (res.error) setVerificationStatus('error')
-      } catch (error) {
-        console.error('Error verifying email:', error)
-        setVerificationStatus('error')
-      }
+        //   else setVerificationStatus('error')
+        // } catch (error) {
+        //   setVerificationStatus('error')
+
+        //   console.error('Error verifying email:', error)
+        //   setVerificationStatus('error')
+        // }
     }
 
     verifyEmailAsync()
-
-    return () => {
-      setIsMounted(false); // Cleanup: Component is unmounted
-    };
-  }, [token, push, isMounted])
+  },[] )
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
@@ -85,3 +81,4 @@ const VerifyPage = ({ searchParams }: { searchParams: { token: string } }) => {
 }
 
 export default VerifyPage
+
